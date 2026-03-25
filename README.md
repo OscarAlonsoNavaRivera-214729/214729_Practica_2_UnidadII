@@ -1,17 +1,35 @@
-# 214729 — Practica 2 Unidad II
-## Clasificador de Vehiculos con Redes Neuronales Convolucionales
+# 214729 — Práctica 2 Unidad II
 
-Modelo que identifica el tipo de vehiculo en una imagen usando Transfer Learning con MobileNetV2 (Keras + FastAPI).
+## Clasificador de Vehículos con Redes Neuronales Convolucionales
+
+Modelo que identifica el tipo de vehículo en una imagen utilizando Transfer Learning con MobileNetV2 implementado con Keras y FastAPI.
+
+Se recomienda clonar este repositorio y seguir las instrucciones para facilitar el uso del modelo y su interfaz.
+
+---
+
+## Clonar repositorio
+
+```bash
+git clone https://github.com/OscarAlonsoNavaRivera-214729/214729_Practica_2_UnidadII.git
+```
+
+O usando SSH:
+
+```bash
+git clone git@github.com:OscarAlonsoNavaRivera-214729/214729_Practica_2_UnidadII.git
+```
+
 ---
 
 ## Requisitos
 
-- Python 3.10 o superior
-- pip
+* Python 3.10 o superior
+* pip
 
 ---
 
-## Instalacion
+## Instalación
 
 ```bash
 # 1. Entrar a la carpeta del proyecto
@@ -30,24 +48,69 @@ pip install -r requirements.txt
 
 ---
 
-## Correr la aplicacion
+## Ejecutar la aplicación
 
 ```bash
 fastapi dev main.py
 ```
 
-Abrir en el navegador: **http://localhost:8000**
+Abrir en el navegador:
 
-El punto en la esquina superior derecha debe aparecer en verde con el texto **"Modelo listo"**. Si aparece en rojo, verificar que `modelo_vehiculos.keras` y `labels.json` esten en la misma carpeta que `main.py`.
+```
+http://localhost:8000
+```
+
+### Estado del modelo
+
+* Verde ("Modelo listo"): funcionamiento correcto
+* Rojo: verificar que existan los archivos:
+
+  * `modelo_vehiculos.keras`
+  * `labels.json`
+
+Ambos deben estar en la misma carpeta que `main.py`.
 
 ---
 
 ## Uso
 
-1. Arrastra una imagen al area de carga o haz clic para seleccionarla
-2. Formatos aceptados: JPG, PNG, WEBP — maximo 10 MB
-3. Presiona **Clasificar**
-4. Se muestra el tipo de vehiculo detectado, el porcentaje de certeza y las 3 opciones mas probables
+1. Arrastrar una imagen o seleccionarla manualmente
+2. Formatos soportados: JPG, PNG, WEBP (máximo 10 MB)
+3. Presionar "Clasificar"
+4. El sistema mostrará:
+
+   * Tipo de vehículo detectado
+   * Nivel de confianza
+   * Tres predicciones más probables
+
+---
+
+## API
+
+### Endpoint principal
+
+```http
+POST /predict
+```
+
+### Request
+
+* Content-Type: multipart/form-data
+* Parámetro: file (imagen)
+
+### Response (ejemplo)
+
+```json
+{
+  "prediccion": "suv",
+  "confianza": 0.92,
+  "top_3": [
+    {"clase": "suv", "probabilidad": 0.92},
+    {"clase": "pickup", "probabilidad": 0.05},
+    {"clase": "van", "probabilidad": 0.03}
+  ]
+}
+```
 
 ---
 
@@ -55,21 +118,41 @@ El punto en la esquina superior derecha debe aparecer en verde con el texto **"M
 
 ```
 app/
-├── main.py                  servidor FastAPI y logica de prediccion
-├── train_model.py           script para re-entrenar el modelo
-├── index.html               interfaz web
-├── requirements.txt         dependencias
-├── modelo_vehiculos.keras   modelo ya entrenado
-└── labels.json              clases del modelo
+├── main.py                  # Servidor FastAPI y lógica de predicción
+├── train_model.py           # Script para re-entrenar el modelo
+├── index.html               # Interfaz web
+├── requirements.txt         # Dependencias
+├── modelo_vehiculos.keras   # Modelo entrenado
+└── labels.json              # Clases del modelo
 ```
+
+---
+
+## Modelo
+
+* Arquitectura: MobileNetV2 (preentrenado en ImageNet)
+* Tipo: Clasificación multiclase
+* Tamaño de entrada: 224x224
+* Función de pérdida: categorical_crossentropy
+* Optimizador: Adam
+* Métrica: accuracy
+
+---
+
+## Resultados (referenciales)
+
+* Accuracy entrenamiento: ~90%
+* Accuracy validación: ~80–85%
+
+Nota: los resultados pueden variar dependiendo del dataset utilizado.
 
 ---
 
 ## Re-entrenar el modelo (opcional)
 
-El modelo incluido ya esta entrenado. Solo es necesario re-entrenar si se agregan imagenes o clases nuevas.
+El modelo incluido ya está entrenado. Solo es necesario re-entrenar si se agregan nuevas clases o imágenes.
 
-Crear la carpeta `images/` con una subcarpeta por clase y al menos 40 imagenes cada una:
+### Estructura requerida
 
 ```
 images/
@@ -84,20 +167,50 @@ images/
 └── bicycle/
 ```
 
+Se recomienda al menos 40 imágenes por clase (idealmente más).
+
+### Ejecutar entrenamiento
+
 ```bash
 python train_model.py
 ```
 
-Esto genera un nuevo `modelo_vehiculos.keras` que reemplaza el anterior.
+Esto generará un nuevo archivo:
+
+```
+modelo_vehiculos.keras
+```
 
 ---
 
-## Tecnologias
+## Limitaciones
 
-| Paquete | Uso |
-|---|---|
-| fastapi | Servidor de la API REST |
-| keras + tensorflow | Red neuronal convolucional |
-| pillow | Procesamiento de imagenes |
-| numpy | Operaciones numericas |
-| scikit-learn | Utilidades de entrenamiento |
+* Dataset reducido puede afectar la capacidad de generalización del modelo
+* Sensible a condiciones de iluminación, ángulo y calidad de imagen
+* Puede existir confusión entre clases visualmente similares
+
+---
+
+## Tecnologías
+
+| Paquete            | Uso                         |
+| ------------------ | --------------------------- |
+| fastapi            | Servidor de la API REST     |
+| keras + tensorflow | Red neuronal convolucional  |
+| pillow             | Procesamiento de imágenes   |
+| numpy              | Operaciones numéricas       |
+| scikit-learn       | Utilidades de entrenamiento |
+
+---
+
+## Notas
+
+* La interfaz está servida directamente desde FastAPI para simplificar el despliegue
+* El modelo se carga en memoria al iniciar el servidor
+* Se recomienda usar entorno virtual para evitar conflictos de dependencias
+
+---
+
+## Licencia
+
+Uso académico y educativo.
