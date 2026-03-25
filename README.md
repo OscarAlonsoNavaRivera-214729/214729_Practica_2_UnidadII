@@ -15,7 +15,7 @@ Modelo que identifica el tipo de vehiculo en una imagen usando Transfer Learning
 
 ```bash
 # 1. Entrar a la carpeta del proyecto
-cd app
+cd 214729_Practica_2_UnidadII
 
 # 2. Crear entorno virtual
 python -m venv venv
