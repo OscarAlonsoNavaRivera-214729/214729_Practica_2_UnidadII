@@ -1,0 +1,5 @@
+fastapi[standard]
+keras
+pillow
+numpy
+tensorflow

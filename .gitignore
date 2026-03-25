@@ -1,0 +1,36 @@
+# Entorno virtual
+venv/
+.venv/
+env/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Dataset de entrenamiento (no necesario para correr el modelo)
+images/
+archive/
+
+# Grafica generada durante el entrenamiento (la copia en graficos/ si se conserva)
+/training_history.png
+
+# Notebook de referencia externo al proyecto
+KERAS.ipynb
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Variables de entorno
+.env
+.env.local
+
+# IDEs
+.vscode/
+.idea/
+*.code-workspace

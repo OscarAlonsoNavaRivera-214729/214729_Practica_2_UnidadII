@@ -1,0 +1,11 @@
+{
+  "0": "sedan",
+  "1": "hatchback",
+  "2": "suv",
+  "3": "pickup",
+  "4": "van",
+  "5": "truck",
+  "6": "bus",
+  "7": "motorcycle",
+  "8": "bicycle"
+}
