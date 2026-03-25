@@ -7,30 +7,25 @@ env/
 __pycache__/
 *.pyc
 *.pyo
-*.pyd
-.Python
 
-# Dataset de entrenamiento (no necesario para correr el modelo)
+# Dataset (solo necesario para re-entrenar)
 images/
 archive/
 
-# Grafica generada durante el entrenamiento (la copia en graficos/ si se conserva)
+# Reporte y graficos (documentacion separada)
+REPORTE.md
+REPORTE.pdf
+graficos/
+generar_graficos.py
+training_history.png
 /training_history.png
 
-# Notebook de referencia externo al proyecto
+# Notebook de referencia externo
 KERAS.ipynb
 
-# Archivos del sistema
+# Sistema
 .DS_Store
 Thumbs.db
-*.swp
-*.swo
-
-# Variables de entorno
 .env
-.env.local
-
-# IDEs
 .vscode/
 .idea/
-*.code-workspace
