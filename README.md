@@ -1,10 +1,7 @@
 # 214729 — Practica 2 Unidad II
 ## Clasificador de Vehiculos con Redes Neuronales Convolucionales
 
-Aplicacion web que identifica el tipo de vehiculo en una imagen usando Transfer Learning con MobileNetV2 (Keras + FastAPI).
-
-Clasifica 9 tipos: Sedan, Hatchback, SUV, Pickup, Van, Camion, Autobus, Motocicleta y Bicicleta.
-
+Modelo que identifica el tipo de vehiculo en una imagen usando Transfer Learning con MobileNetV2 (Keras + FastAPI).
 ---
 
 ## Requisitos
@@ -63,11 +60,7 @@ app/
 ├── index.html               interfaz web
 ├── requirements.txt         dependencias
 ├── modelo_vehiculos.keras   modelo ya entrenado
-├── labels.json              clases del modelo
-├── generar_graficos.py      genera imagenes para el reporte
-├── graficos/                imagenes del reporte
-├── REPORTE.md               reporte del proyecto
-└── REPORTE.pdf              reporte en PDF
+└── labels.json              clases del modelo
 ```
 
 ---
